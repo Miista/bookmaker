@@ -5,6 +5,7 @@ class Keys
   DIRECTORY = "dir"
   TITLE = "title"
   DATA_FILE = "datafile"
+  ADDITIONAL_DIRS = "add_dirs"
 end
 
 def mk_dir_name(str)
@@ -33,7 +34,8 @@ confirmation = confirm("Create new book with title \"#{title}\"?")
 if confirmation then
   bookData = {
     Keys::TITLE => title,
-    Keys::DIRECTORY => mk_dir_name(title)
+    Keys::DIRECTORY => mk_dir_name(title),
+    Keys::ADDITIONAL_DIRS => []
   }
   root = bookData[Keys::DIRECTORY]
   create_book(root)
