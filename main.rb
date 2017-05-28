@@ -1,4 +1,5 @@
 require 'json'
+load 'IOUtils.rb'
 
 # File.open(".book", "r") do |f|
 #   s = f.read
