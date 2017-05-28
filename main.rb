@@ -22,8 +22,6 @@ end
 
 def write_config(config)
   root = config[Keys::DIRECTORY]
-  puts root
-  puts Dir.getwd
   config_file = File.join(root, ".books")
   File.open(config_file, "w") do |f|
     f.write(config.to_json)
@@ -40,5 +38,5 @@ if confirmation then
   root = bookData[Keys::DIRECTORY]
   create_book(root)
   write_config(bookData)
-  puts Dir.getwd
+  puts "Book created!"
 end
