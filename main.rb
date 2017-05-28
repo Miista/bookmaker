@@ -1,44 +1,44 @@
 require 'json'
 load 'IOUtils.rb'
 
-# File.open(".book", "r") do |f|
-#   s = f.read
-#   puts JSON.parse(s)
-# end
-def get_input(text)
-  print "#{text}: "
-  return gets.chomp
-end
-
-def confirm(text, enter_confirms = false)
-  print "#{text} [y/n]: "
-  resp = gets.chomp.downcase
-  if resp == 'y' then
-    return true
-  elsif resp.empty? && enter_confirms then
-    return true
-  else
-    return false
-  end
+class Keys
+  DIRECTORY = "dir"
+  TITLE = "title"
+  DATA_FILE = "datafile"
 end
 
 def mk_dir_name(str)
   return str.gsub(' ', '-').downcase
 end
 
+def create_book(root)
+  chapterDir = File.join(root, "chapters")
+  characterDir = File.join(root, "characters")
+
+  Dir.mkdir(root)
+  Dir.mkdir(chapterDir)
+  Dir.mkdir(characterDir)
+end
+
+def write_config(config)
+  root = config[Keys::DIRECTORY]
+  puts root
+  puts Dir.getwd
+  config_file = File.join(root, ".books")
+  File.open(config_file, "w") do |f|
+    f.write(config.to_json)
+  end
+end
+
 title = get_input("Title")
 confirmation = confirm("Create new book with title \"#{title}\"?")
 if confirmation then
   bookData = {
-    "title" => title,
-    "dir" => mk_dir_name(title)
+    Keys::TITLE => title,
+    Keys::DIRECTORY => mk_dir_name(title)
   }
-  root = bookData["dir"]
-  Dir.mkdir(root)
-  Dir.mkdir(File.join(root, "chapters"))
-  Dir.mkdir(File.join(root, "characters"))
-  File.open(File.join(root, ".books"), "w") do |f|
-    f.write(bookData.to_json)
-  end
+  root = bookData[Keys::DIRECTORY]
+  create_book(root)
+  write_config(bookData)
   puts Dir.getwd
 end
