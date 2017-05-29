@@ -25,20 +25,23 @@ def create_new():
     if not confirmation:
         die("OK!")
 
+    use_vc = confirm("Use git?")
     directory = title.replace(" ", "-").lower()
 
-    skeleton_folder = "skeleton"
-    script_path = dirname(realpath(__file__))
-    src = join(script_path, skeleton_folder)
-    dest = join(os.getcwd(), directory)
-    copytree(src, dest)
-
-    use_vc = confirm("Use git?")
+    # Put data into dictionary
     data = {
             "title": title,
             "directory": directory,
             "use_vc": use_vc
             }
+
+
+    # Path to the script folder (it contains the skeleton folder)
+    script_path = dirname(realpath(__file__))
+    src = join(script_path, "skeleton")
+    dest = join(os.getcwd(), directory)
+    copytree(src, dest)
+
     config_path = join(directory, ".book")
     write_data(data, config_path)
     
