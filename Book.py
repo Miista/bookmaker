@@ -37,7 +37,7 @@ def create_new():
     data = {
             "title": title,
             "directory": directory,
-            "use_vs": use_vc
+            "use_vc": use_vc
             }
     config_path = join(directory, ".book")
     write_data(data, config_path)
@@ -52,6 +52,22 @@ def create_new():
 
     success("Success!")
 
+
+def make_book(type):
+    skeleton_folder = "skeleton"
+    this_path = os.getcwd()
+    dest_path = join(this_path, "Makefile")
+
+    script_path = dirname(realpath(__file__))
+    makefile_path = join(script_path, skeleton_folder, "Makefile")
+
+    # Copy Makefile
+    copyfile(makefile_path, dest_path)
+
+    cmd = "make %(type)s" % locals()
+    subprocess.Popen(cmd, shell=True, cwd=this_path)
+
+
 if __name__ == "__main__":
     if (len(sys.argv) == 1):
         die("Please specify an action!", -1)
@@ -59,4 +75,13 @@ if __name__ == "__main__":
     action = sys.argv[1]
     if action == "new":
         create_new()
+    elif action == "make":
+        type = "pdf"
+        if len(sys.argv) <= 2:
+            print("No type given. Defaulting to PDF.")
+        else:
+            type = sys.argv[2]
+
+        make_book(type)
+
 
