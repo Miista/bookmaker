@@ -2,7 +2,7 @@ import json
 import sys
 import os
 from os import mkdir, listdir
-from os.path import join, basename, realpath, dirname
+from os.path import join, basename, realpath, dirname, isfile
 import subprocess
 from subprocess import call
 
@@ -54,15 +54,16 @@ def create_new():
 
 
 def make_book(type):
-    skeleton_folder = "skeleton"
     this_path = os.getcwd()
-    dest_path = join(this_path, "Makefile")
+    makefile_path = join(this_path, "Makefile")
 
-    script_path = dirname(realpath(__file__))
-    makefile_path = join(script_path, skeleton_folder, "Makefile")
-
-    # Copy Makefile
-    copyfile(makefile_path, dest_path)
+    # If the Makefile does not exist,
+    # we will copy it in
+    if not isfile(makefile_path):
+        # Copy Makefile in
+        script_path = dirname(realpath(__file__))
+        src = join(script_path, "skeleton/Makefile")
+        copyfile(src, makefile_path)
 
     cmd = "make %(type)s" % locals()
     subprocess.Popen(cmd, shell=True, cwd=this_path)
