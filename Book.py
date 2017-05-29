@@ -25,26 +25,35 @@ def create_new():
     if not confirmation:
         die("OK!")
 
+    # Do we want to use [v]ersion [c]ontrol?
     use_vc = confirm("Use git?")
+
+    # Spaces are replaced with dashes because spaces may cause problems
+    # with shell commands.
+    # We store the title in the config file, anyway.
     directory = title.replace(" ", "-").lower()
 
-    # Put data into dictionary
+    # Put data into dictionary. We will write it to disk later.
     data = {
             "title": title,
             "directory": directory,
             "use_vc": use_vc
             }
 
-
     # Path to the script folder (it contains the skeleton folder)
     script_path = dirname(realpath(__file__))
     src = join(script_path, "skeleton")
     dest = join(os.getcwd(), directory)
+
+    # Copy the entire skeleton.
+    # This will also create the destionation folder.
     copytree(src, dest)
 
+    # Now, we write the config file.
     config_path = join(directory, ".book")
     write_data(data, config_path)
     
+    # If we want to use VC, initialize it now.
     if use_vc:
         cmds = [
             "git init -q",
@@ -61,7 +70,7 @@ def make_book(type):
     makefile_path = join(this_path, "Makefile")
 
     # If the Makefile does not exist,
-    # we will copy it in
+    # we will copy it in.
     if not isfile(makefile_path):
         # Copy Makefile in
         script_path = dirname(realpath(__file__))
