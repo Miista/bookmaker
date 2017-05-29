@@ -1,13 +1,26 @@
 This is a tool for creating the skeleton for a book.
 It assumes that Pandoc and git is installed and available on the path.
 
-## Creating a Book
+## Installing
+
+To install this tool, simply clone the repository and put the script on your path.
+Navigate to the folder and execute the command below:
+
+    ln -s $(pwd)/bookmaker /usr/local/bin/bookmaker
+
+This will put the script into your `PATH`, making at available on the commandline.
+
+If the file is not executable, you need to run `chmod +x bookmaker`.
+
+## Commands/Usage
+
+### Creating a Book
 
 Run `book new`.
 It will ask you for the name
 and whether you want to use version control (you should!).
 
-## Publishing
+### Publishing
 
 There are three different output types: PDF, docx, and ePub.
 All of them can be created by typing `book make [type]`.
