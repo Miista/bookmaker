@@ -48,7 +48,7 @@ def create_new():
     if use_vc:
         cmds = [
             "git init -q",
-            "git add .book",
+            "git add -A",
             "git commit -q -m \"Created book\""
         ]
         subprocess.Popen("; ".join(cmds), shell=True, cwd=directory)
