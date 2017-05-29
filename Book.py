@@ -5,23 +5,7 @@ from os.path import join
 import subprocess
 from subprocess import call
 
-def confirm(msg, enterConfirms=True):
-    response = raw_input(msg + " ")
-    return (enterConfirms and not response) or response.lower() == "y"
-
-
-def printAndExit(msg, exitCode):
-    print(msg)
-    sys.exit(exitCode)
-
-
-def success(msg):
-    printAndExit(msg, exitCode=0)
-
-
-def die(msg, exitCode=0):
-    print(msg)
-    sys.exit(exitCode)
+from utils import *
 
 
 def write_data(data, file):
