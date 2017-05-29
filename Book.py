@@ -1,9 +1,12 @@
 import json
 import sys
-from os import mkdir
-from os.path import join
+import os
+from os import mkdir, listdir
+from os.path import join, basename, realpath, dirname
 import subprocess
 from subprocess import call
+
+from shutil import *
 
 from utils import *
 
@@ -23,11 +26,12 @@ def create_new():
         die("OK!")
 
     directory = title.replace(" ", "-").lower()
-    chapDir = join(directory, "chapters")
-    charDir = join(directory, "characters")
-    mkdir(directory)
-    mkdir(chapDir)
-    mkdir(charDir)
+
+    skeleton_folder = "skeleton"
+    script_path = dirname(realpath(__file__))
+    src = join(script_path, skeleton_folder)
+    dest = join(os.getcwd(), directory)
+    copytree(src, dest)
 
     use_vc = confirm("Use git?")
     data = {

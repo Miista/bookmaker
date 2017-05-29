@@ -1,3 +1,5 @@
+import sys
+
 def confirm(msg, enterConfirms=True):
     response = raw_input(msg + " ")
     return (enterConfirms and not response) or response.lower() == "y"
