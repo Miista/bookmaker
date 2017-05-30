@@ -1,0 +1,8 @@
+- scene: Scene1
+  characters:
+  - Susan
+  - Joe
+
+- scene: Scene2
+  characters:
+  - Joe
