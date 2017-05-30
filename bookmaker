@@ -11,6 +11,7 @@ from subprocess import call
 from shutil import *
 
 from utils import *
+from project import Project
 
 
 def write_data(data, file):
@@ -43,11 +44,10 @@ def create_new():
     directory = title.replace(" ", "-").lower()
 
     # Put data into dictionary. We will write it to disk later.
-    data = {
-            "title": title,
-            "directory": directory,
-            "use_vc": use_vc
-            }
+    project = Project()
+    project.metadata["title"] = title
+    project.metadata["directory"] = directory
+    project.metadata["use_vc"] = use_vc
 
     # Path to the script folder (it contains the skeleton folder)
     script_path = dirname(realpath(__file__))
@@ -59,9 +59,8 @@ def create_new():
     copytree(src, dest)
 
     # Now, we write the config file.
-    config_path = join(directory, ".book")
-    write_data(data, config_path)
-    
+    project.write_data(write_path=directory)
+
     # If we want to use VC, initialize it now.
     if use_vc:
         cmds = [
