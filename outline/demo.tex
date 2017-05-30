@@ -1,0 +1,84 @@
+%\documentclass[tikz]{standalone}
+%\usetikzlibrary{positioning,backgrounds,arrows.meta}
+%\begin{document}
+%\begin{tikzpicture}[
+%  line/.style={
+%    line width=0.2mm
+%  },
+%  every node/.style={
+%    draw,
+%    circle,
+%    fill=white
+%  },
+%  main/.style={
+%    draw,
+%    circle,
+%    fill=white
+%  },
+%  minor/.style={
+%    draw,
+%    circle,
+%    fill=black
+%  },
+%  minorline/.style={
+%    color=blue!80,
+%    line width=0.5mm
+%  }]
+%  % Four major events:
+%  % 1) start
+%  % 2) trouble
+%  % 3) rising
+%  % 4) the end
+%  \node[{label (start) at (0,0) {};
+%  \node (ml1) at (1,0) {};
+%  \node (ml2) at (2,0) {};
+%  \node (end) at (3,0) {};
+%  
+%  \begin{scope}[on background layer]
+%    \draw[line,transform canvas={yshift=1pt}] (0,0) to (3,0);
+%  \end{scope}
+%  
+%  % -- SECONDARY
+%  \node[minor] (ll) at (1,1) {};
+%  \begin{scope}[on background layer]
+%    % Secondary line
+%    \draw[minorline,transform canvas={yshift=-1pt}] (0,0) to (1,1);
+%  \end{scope}
+%\end{tikzpicture}
+%\end{document}
+
+\documentclass[tikz]{standalone}
+\usetikzlibrary{positioning,backgrounds,arrows.meta}
+\begin{document}
+\tikzset{
+  every node/.style={
+    draw,
+    circle,
+    fill=white
+  },
+  main/.style={
+    color=red
+  },
+  minor/.style={
+    color=blue
+  }
+}
+\begin{tikzpicture}
+\node[main,label={[label distance=1cm]30:}] (mainstart) at (0,0) {};
+\node[,label={[label distance=1cm]30:start}] (line2start) at (1,1) {};
+\node[main,label={[label distance=1cm]30:}] (maintrouble) at (2,0) {};
+\node[,label={[label distance=1cm]30:trouble}] (line2trouble) at (3,1) {};
+\node[,label={[label distance=1cm]30:kissing}] (line2kissing) at (4,1) {};
+\node[main,label={[label distance=1cm]30:}] (mainrising) at (5,0) {};
+\node[,label={[label distance=1cm]30:rising}] (line2rising) at (6,1) {};
+\node[main,label={[label distance=1cm]30:}] (mainthe-end) at (7,0) {};
+
+\draw[-] (mainstart) to (maintrouble);
+\draw[-] (maintrouble) to (mainrising);
+\draw[-] (mainrising) to (mainthe-end);
+\draw[-] (line2start) to (line2trouble);
+\draw[-] (line2trouble) to (line2kissing);
+\draw[-] (line2kissing) to (line2rising);
+
+\end{tikzpicture}
+\end{document}
