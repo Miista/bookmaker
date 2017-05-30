@@ -26,6 +26,11 @@ There are three different output types: PDF, docx, and ePub.
 All of them can be created by typing `book make [type]`.
 If no type is given, PDF is assumed.
 
+*Caveat*: Right now chapters are included in their alphabetical order.
+There are plans to allow you to specify the exact chapter order.
+For now, this can be achieved by making sure that the chapters are named
+alphabetically in the order that you want them in the final book.
+
 ## Future
 
 ### Session Handling
@@ -37,3 +42,8 @@ and at the end of a session, all work is committed to version control.
 ### Wrappers Around git
 
 Provide commands for some of the functionality provided by git e.g. `git log`.
+
+### Chapter Ordering
+
+Provide the ability to change the chapter order.
+Right now chapters are included in the alphabetical order the occur in.
