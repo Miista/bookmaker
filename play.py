@@ -6,28 +6,7 @@ import string
 import subprocess
 
 import utils
-
-class Project:
-    project_file = ".books"
-    """The project file containing the meta data about the book."""
-
-    chapter_file = "chapters.yaml"
-    """A file containing the order of the chapters. Might not exist."""
-
-    chapters = {}
-    config = {}
-
-    def __init__(self):
-        self.chapters = self.read_config()["chapters"]
-        self.config = self.read_project()
-
-    def read_project(self):
-        with open(self.project_file, "r") as f:
-            return json.load(f)
-
-    def read_config(self):
-        with open(self.chapter_file, "r") as f:
-            return yaml.load(f)
+from project import Project
 
 class Publisher:
     def publish(self):
